@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pía Isbej | Neurociencia Aplicada & Consultoría Estratégica</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hybrid: {
+                            dark: '#0B1120',    /* Azul Noche Profundo */
+                            paper: '#Fdfcf8',   /* Blanco Editorial */
+                            gold: '#C5A47E',    /* Dorado Champagne */
+                            slate: '#94a3b8'    /* Texto secundario */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    animation: {
+                        'scroll-left': 'scrollLeft 50s linear infinite',
+                        'scroll-right': 'scrollRight 50s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        scrollLeft: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        scrollRight: {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B1120; color: #Fdfcf8; }
+        h1, h2, h3, h4, .font-editorial { font-family: 'Cormorant Garamond', serif; }
+
+        /* CANVAS DE FONDO (Sutil) */
+        #hybrid-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* Gradiente de lujo para el Hero */
+        .luxury-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(11, 17, 32, 0.4) 0%, rgba(11, 17, 32, 1) 90%);
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        /* Tarjetas Híbridas: Minimalismo Europeo con Sombra Tech */
+        .card-hybrid {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-hybrid:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -5px rgba(197, 164, 126, 0.15); /* Sombra dorada suave */
+            border-color: #C5A47E;
+        }
+
+        /* Video Masking */
+        .video-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+        }
+
+        .marquee-wrapper:hover .marquee-content {
+            animation-play-state: paused;
+        }
+        
+        .testimonial-card {
+            background: #fff;
+            border: 1px solid #e5e0d8;
+            transition: all 0.3s ease;
+        }
+        .testimonial-card:hover {
+            border-color: #C5A47E;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        }
+
+        /* Botón Híbrido */
+        .btn-hybrid {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            padding: 1rem 2.5rem;
+        }
+        .btn-hybrid:hover {
+            background: #C5A47E;
+            border-color: #C5A47E;
+            color: #0B1120;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed w-full z-50 top-0 left-0 bg-hybrid-dark/90 backdrop-blur-md border-b border-white/5 py-5 transition-all">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#" class="font-editorial text-2xl text-white tracking-wide">
+                Isbej<span class="text-hybrid-gold">.</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10 text-xs font-medium tracking-[0.15em] uppercase text-slate-300">
+                <a href="#filosofia" class="hover:text-hybrid-gold transition-colors">Filosofía</a>
+                <a href="#servicios" class="hover:text-hybrid-gold transition-colors">Expertise</a>
+                <a href="#testimonios" class="hover:text-hybrid-gold transition-colors">Testimonios</a>
+                <a href="#equipo" class="hover:text-hybrid-gold transition-colors">Directorio</a>
+                <a href="#agendar" class="px-5 py-2 border border-hybrid-gold text-hybrid-gold hover:bg-hybrid-gold hover:text-hybrid-dark transition-all">
+                    Agendar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center overflow-hidden bg-hybrid-dark">
+        <canvas id="hybrid-canvas"></canvas>
+        <div class="luxury-gradient"></div>
+
+        <div class="container mx-auto px-6 md:px-12 relative z-10 mt-16">
+            <div class="max-w-4xl">
+                <p class="text-hybrid-gold text-xs font-bold uppercase tracking-[0.4em] mb-6 animate-float">
+                    Neurociencia & Estrategia
+                </p>
+                <h1 class="text-6xl md:text-8xl font-editorial font-light text-white leading-[1.1] mb-8">
+                    La arquitectura <br>
+                    <span class="italic text-slate-400">oculta</span> del talento.
+                </h1>
+                <p class="text-lg font-light text-slate-400 max-w-xl leading-relaxed mb-12 border-l-2 border-hybrid-gold/30 pl-6">
+                    Fusionamos la evidencia científica con la elegancia consultiva. Decodificamos lo que el currículum no dice.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="#servicios" class="btn-hybrid">Explorar Servicios</a>
+                    <a href="#agendar" class="flex items-center gap-3 text-sm text-slate-300 hover:text-white transition-colors uppercase tracking-widest text-[10px]">
+                        <div class="w-8 h-px bg-hybrid-gold"></div> Sesión Privada
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-12 right-12 hidden md:block text-right z-10">
+            <span class="block text-4xl font-editorial text-hybrid-gold">20+</span>
+            <span class="text-[10px] uppercase tracking-widest text-slate-500">Años de Investigación</span>
+        </div>
+    </header>
+
+    <section id="filosofia" class="relative py-32 bg-[#111827] border-t border-white/5">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                
+                <div>
+                    <span class="text-hybrid-gold font-bold uppercase tracking-[0.2em] text-xs mb-6 block">El Método Isbej</span>
+                    <h2 class="text-4xl md:text-5xl font-editorial font-light text-white mb-8 leading-tight">
+                        Donde la intuición <br>encuentra la <span class="italic">evidencia.</span>
+                    </h2>
+                    <p class="text-slate-400 font-light text-lg leading-loose mb-8">
+                        No adivinamos. Utilizamos el <strong>análisis neuroescritural</strong> como una resonancia magnética de la personalidad. Detectamos patrones de honestidad, resiliencia y liderazgo invisibles en una entrevista convencional.
+                    </p>
+                    <div class="p-6 border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <p class="text-sm text-slate-300 italic">
+                            "La escritura es el gesto más honesto del cerebro humano. Es data pura esperando ser leída."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative h-[500px] w-full overflow-hidden border-r-4 border-b-4 border-hybrid-gold/20">
+                     <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-screen">
+                        <source src="https://videos.pexels.com/video-files/3205799/3205799-sd_640_360_25fps.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="py-32 bg-hybrid-paper text-hybrid-dark">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="text-center mb-24">
+                <span class="text-hybrid-gold font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Nuestras Capacidades</span>
+                <h2 class="text-5xl font-editorial font-light">Ingeniería Humana</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="card-hybrid p-10 group">
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold/50 mb-6 block">01</span>
+                        <h3 class="text-2xl font-editorial mb-4">Talent Intelligence</h3>
+                        <p class="text-slate-600 font-light text-sm leading-relaxed">
+                            Headhunting de precisión. Buscamos perfiles que no están buscando trabajo, pero que son perfectos para su cultura.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-hybrid-gold transition-colors">Executive Search &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card-hybrid p-10 group">
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold/50 mb-6 block">02</span>
+                        <h3 class="text-2xl font-editorial mb-4">Neuro-Assessment</h3>
+                        <p class="text-slate-600 font-light text-sm leading-relaxed">
+                            Evaluación clínica profunda. Utilizamos baterías de tests avanzadas para medir competencias blandas reales.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-hybrid-gold transition-colors">Psicolaboral &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card-hybrid p-10 group">
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold/50 mb-6 block">03</span>
+                        <h3 class="text-2xl font-editorial mb-4">Assessment Center</h3>
+                        <p class="text-slate-600 font-light text-sm leading-relaxed">
+                            Evaluación en acción. Simulaciones grupales y role-playing para ver el comportamiento bajo presión.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-hybrid-gold transition-colors">Dinámicas &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card-hybrid p-10 group">
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold/50 mb-6 block">04</span>
+                        <h3 class="text-2xl font-editorial mb-4">Potential Analysis</h3>
+                        <p class="text-slate-600 font-light text-sm leading-relaxed">
+                            Identificación de talento interno. Detectamos quiénes serán sus líderes del mañana antes de que ellos lo sepan.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-hybrid-gold transition-colors">Sucesión &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card-hybrid p-10 group bg-hybrid-dark text-white border-none transform md:-translate-y-2 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-hybrid-gold/10 rounded-full blur-2xl"></div>
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold mb-6 block">05</span>
+                        <h3 class="text-2xl font-editorial mb-4">Grapho-Intelligence</h3>
+                        <p class="text-slate-400 font-light text-sm leading-relaxed">
+                            <strong>Nuestro sello distintivo.</strong> Análisis grafológico científico para detectar honestidad, ética y rasgos ocultos.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-hybrid-gold hover:text-white transition-colors">Informe Pericial &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card-hybrid p-10 group">
+                    <div>
+                        <span class="text-4xl font-editorial text-hybrid-gold/50 mb-6 block">06</span>
+                        <h3 class="text-2xl font-editorial mb-4">Executive Transition</h3>
+                        <p class="text-slate-600 font-light text-sm leading-relaxed">
+                            Programas de Outplacement y Coaching. Acompañamos la salida y el crecimiento con dignidad y estrategia.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100">
+                         <a href="#" class="text-[10px] font-bold uppercase tracking-widest hover:text-hybrid-gold transition-colors">Outplacement &rarr;</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonios" class="py-24 bg-white border-y border-gray-100 overflow-hidden text-hybrid-dark">
+        <div class="container mx-auto px-6 mb-16 text-center">
+            <span class="text-hybrid-gold font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Track Record</span>
+            <h2 class="text-3xl md:text-4xl font-editorial">La voz de la experiencia</h2>
+        </div>
+        
+        <div class="marquee-wrapper relative w-full mb-6">
+            <div class="marquee-content flex gap-6 animate-scroll-left w-max">
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Precisión quirúrgica en la selección."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Roberto M. — Banca</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Grafología de otro nivel."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Ana S. — Minería</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Entendieron mi cultura."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Carlos D. — Retail</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Profesionalismo puro."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Elena R. — Tech</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Resultados rápidos."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Jean P. — Director</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Ahorramos meses de búsqueda."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Mario F. — CFO Latam</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Coaching transformador."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Sofia G. — Mkt Dir</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Reportes claros."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Luis A. — Gerente</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Detectaron un líder tóxico."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Fernanda P. — HR</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Servicio boutique real."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Diego S. — CEO</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Precisión quirúrgica en la selección."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Roberto M. — Banca</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Grafología de otro nivel."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Ana S. — Minería</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Entendieron mi cultura."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Carlos D. — Retail</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Profesionalismo puro."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Elena R. — Tech</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Resultados rápidos."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Jean P. — Director</p></div>
+            </div>
+        </div>
+
+        <div class="marquee-wrapper relative w-full">
+            <div class="marquee-content flex gap-6 animate-scroll-right w-max" style="margin-left: -100%;">
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Análisis profundo."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Patricia L. — Abogada</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Redefiní mi carrera."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Jorge B. — Ing Civil</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"La mejor inversión."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Lorena K. — Gerente</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Resultados tangibles."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Pedro U. — Industrial</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Visión científica."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Monica J. — Psicóloga</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Trato humano."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Raúl V. — Jefe Planta</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Headhunting certero."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Isabel Q. — CEO</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Evitaron mala contratación."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Tomas E. — Directorio</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Elegancia y seriedad."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Beatriz C. — RRPP</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Recomendados para C-Level."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Gonzalo R. — VP</p></div>
+                 <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Análisis profundo."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Patricia L. — Abogada</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Redefiní mi carrera."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Jorge B. — Ing Civil</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"La mejor inversión."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Lorena K. — Gerente</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Resultados tangibles."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Pedro U. — Industrial</p></div>
+                <div class="testimonial-card w-96 p-8"><p class="font-editorial text-xl italic mb-4">"Visión científica."</p><p class="text-[10px] uppercase font-bold text-hybrid-gold">Monica J. — Psicóloga</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo" class="py-24 bg-hybrid-dark border-t border-white/5 text-white">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-3xl font-editorial mb-16">Directorio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="group">
+                    <div class="w-40 h-56 mx-auto mb-6 bg-white/5 overflow-hidden"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                    <h4 class="text-xl font-editorial">Pía Isbej</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-hybrid-gold">Fundadora</p>
+                </div>
+                <div class="group">
+                    <div class="w-40 h-56 mx-auto mb-6 bg-white/5 overflow-hidden"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                    <h4 class="text-xl font-editorial">Eduardo Riveros</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-hybrid-gold">Director</p>
+                </div>
+                <div class="group">
+                    <div class="w-40 h-56 mx-auto mb-6 bg-white/5 overflow-hidden"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                    <h4 class="text-xl font-editorial">Socio Senior</h4>
+                    <p class="text-[10px] uppercase tracking-widest text-hybrid-gold">Head of Talent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agendar" class="py-24 bg-[#080c14] text-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl font-editorial mb-8">Agenda Digital</h2>
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/TU_USUARIO?hide_gdpr_banner=1&background_color=080c14&text_color=ffffff&primary_color=c5a47e" style="min-width:320px;height:400px;"></div>
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-4xl font-editorial mb-8">Pagos Seguros</h2>
+                    <p class="text-slate-500 mb-8 font-light">Acceso global para clientes nacionales e internacionales.</p>
+                    <div class="space-y-4">
+                        <a href="#" class="block p-6 border border-white/10 hover:border-hybrid-gold transition-colors group">
+                            <span class="block text-sm font-bold uppercase tracking-widest group-hover:text-hybrid-gold">Clientes Chile (CLP)</span>
+                            <span class="text-xs text-slate-500">Transbank / Webpay</span>
+                        </a>
+                        <a href="https://paypal.me/TU_USUARIO" target="_blank" class="block p-6 border border-white/10 hover:border-hybrid-gold transition-colors group">
+                            <span class="block text-sm font-bold uppercase tracking-widest group-hover:text-hybrid-gold">International (USD)</span>
+                            <span class="text-xs text-slate-500">PayPal Global</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-black text-center text-slate-500 text-xs uppercase tracking-widest border-t border-white/5">
+        <p>&copy; 2025 Isbej Consultores. Santiago, Chile.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('hybrid-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            init();
+        }
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3; 
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 1.5;
+                this.alpha = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(197, 164, 126, ${this.alpha})`; 
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < 40; i++) { 
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+
+        resize();
+        animate();
+    </script>
+
+</body>
+</html>
